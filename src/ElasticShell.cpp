@@ -46,9 +46,9 @@ namespace LibShell {
     {
         int nfaces = mesh.nFaces();
         int nedges = mesh.nEdges();
-        int nverts = (int)curPos.rows();
+        int nverts = (int)curPos.cols();
 
-        if (curPos.cols() != 3 || extraDOFs.size() != SFF::numExtraDOFs * nedges)
+        if (curPos.rows() != 3 || extraDOFs.size() != SFF::numExtraDOFs * nedges)
         {
             return std::numeric_limits<double>::infinity();
         }

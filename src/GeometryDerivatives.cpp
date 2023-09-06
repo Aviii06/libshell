@@ -70,9 +70,9 @@ namespace LibShell {
         int v0 = startidx % 3;
         int v1 = (startidx + 1) % 3;
         int v2 = (startidx + 2) % 3;
-        Eigen::Vector3d qi0 = curPos.row(mesh.faceVertex(face, v0)).transpose();
-        Eigen::Vector3d qi1 = curPos.row(mesh.faceVertex(face, v1)).transpose();
-        Eigen::Vector3d qi2 = curPos.row(mesh.faceVertex(face, v2)).transpose();
+        Eigen::Vector3d qi0 = curPos.col(mesh.faceVertex(face, v0)).transpose();
+        Eigen::Vector3d qi1 = curPos.col(mesh.faceVertex(face, v1)).transpose();
+        Eigen::Vector3d qi2 = curPos.col(mesh.faceVertex(face, v2)).transpose();
         Eigen::Vector3d n = (qi1 - qi0).cross(qi2 - qi0);
 
         if (derivative)
@@ -119,8 +119,8 @@ namespace LibShell {
 
         int v2 = (edgeidx + 2) % 3;
         int v1 = (edgeidx + 1) % 3;
-        Eigen::Vector3d q2 = curPos.row(mesh.faceVertex(face, v2)).transpose();
-        Eigen::Vector3d q1 = curPos.row(mesh.faceVertex(face, v1)).transpose();
+        Eigen::Vector3d q2 = curPos.col(mesh.faceVertex(face, v2)).transpose();
+        Eigen::Vector3d q1 = curPos.col(mesh.faceVertex(face, v1)).transpose();
 
         Eigen::Vector3d e = q2 - q1;
         double nnorm = n.norm();
@@ -170,9 +170,9 @@ namespace LibShell {
         Eigen::Matrix<double, 4, 9>* derivative, // F(face, i)
         std::vector <Eigen::Matrix<double, 9, 9> >* hessian)
     {
-        Eigen::Vector3d q0 = curPos.row(mesh.faceVertex(face, 0));
-        Eigen::Vector3d q1 = curPos.row(mesh.faceVertex(face, 1));
-        Eigen::Vector3d q2 = curPos.row(mesh.faceVertex(face, 2));
+        Eigen::Vector3d q0 = curPos.col(mesh.faceVertex(face, 0));
+        Eigen::Vector3d q1 = curPos.col(mesh.faceVertex(face, 1));
+        Eigen::Vector3d q2 = curPos.col(mesh.faceVertex(face, 2));
         Eigen::Matrix2d result;
         result << (q1 - q0).dot(q1 - q0), (q1 - q0).dot(q2 - q0),
             (q2 - q0).dot(q1 - q0), (q2 - q0).dot(q2 - q0);
